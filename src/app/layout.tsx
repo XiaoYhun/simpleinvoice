@@ -17,6 +17,12 @@ export const metadata: Metadata = {
   description: "Create, search and manage invoices.",
 };
 
+// The middleware (proxy.ts) issues a per-request CSP nonce with 'strict-dynamic'.
+// Next can only stamp that nonce onto its <script> tags during a per-request
+// render, so every route must render dynamically — otherwise a statically
+// prerendered page ships nonce-less scripts and the browser blocks all JS.
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
